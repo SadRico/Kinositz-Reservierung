@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 
-// === SQLite3-Datenbankverbindung === //
+// === Datenbankverbindung === //
 const db = new sqlite3.Database('./database.db', (err) => {
     if (err) {
         console.error('Datenbank konnte nicht geöffnet werden:', err.message);
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 
-// === Hole alle Sitze aus der Datenbank === //
+// === Holt alle Sitze aus der Datenbank === //
 app.get('/api/sitze', (req, res) => {
     db.all('SELECT * FROM sitze', (err, rows) => {
         if (err) {
@@ -33,7 +33,7 @@ app.get('/api/sitze', (req, res) => {
 });
 
 
-// === Hole alle Sitze für einen bestimmten Raum === //
+// === Holt alle Sitze für einen bestimmten Raum === //
 app.get('/api/sitze/:raumId', (req, res) => {
     const raumId = req.params.raumId;
 
@@ -58,7 +58,7 @@ app.post('/api/buchen', (req, res) => {
         return res.status(400).json({ error: 'sitz_ids muss ein Array mit mindestens einem Element sein.' });
     }
 
-    // === Prüfen, ob alle Sitze verfügbar sind === //
+    // === Prüft ob alle Sitze verfügbar sind === //
     db.all('SELECT * FROM sitze WHERE id IN (' + sitz_ids.join(',') + ') AND ist_belegt = 0', (err, rows) => {
         if (err) {
             return res.status(500).json({ error: err.message });
@@ -94,7 +94,7 @@ app.post('/api/buchen', (req, res) => {
 });
 
 
-// === Hole alle Sitze für einen bestimmten Raum === //
+// === Holt alle Sitze für einen bestimmten Raum === //
 app.get('/api/sitze/:raumId', (req, res) => {
     const raumId = req.params.raumId;
 
@@ -109,7 +109,7 @@ app.get('/api/sitze/:raumId', (req, res) => {
 });
 
 
-// === Hole alle Filme === //
+// === Holt alle Filme === //
 app.get('/api/filme', (req, res) => {
     db.all(`
         SELECT filme.*, raeume.name as raum_name 
