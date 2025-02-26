@@ -3,13 +3,96 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kino Sitzplatzverteilung</title>
+  <title>Kino Reservation</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Kino Sitzplatzverteilung</h1>
+<div class="container">
+  <h1>Kinoplatz Reservierung</h1>
 
+  <!-- Reservierungsschritte -->
+  <div class="steps">
+    <div class="step active" id="step1">1. Film auswählen</div>
+    <div class="step" id="step2">2. Sitzplatz auswählen</div>
+    <div class="step" id="step3">3. Persönliche Daten</div>
+    <div class="step" id="step4">4. Bestätigung</div>
+  </div>
+
+  <!-- Filmauswahl -->
+  <div class="section" id="section1">
+    <h2>Film auswählen</h2>
+    <div class="form-group">
+      <label for="film-dropdown">Film:</label>
+      <select id="film-dropdown" required>
+        <option value="" disabled selected>Bitte Film auswählen</option>
+      </select>
+    </div>
+    <div class="film-info" id="film-info">
+      <!-- Filminformationen -->
+    </div>
+    <button id="btn-to-step2" class="btn">Weiter zur Sitzplatzauswahl</button>
+  </div>
+
+  <!-- Sitzplatzauswahl -->
+  <div class="section hidden" id="section2">
+    <h2>Sitzplatz auswählen</h2>
+    <div class="film-raum-info" id="film-raum-info">
+      <!-- Film- und Rauminformationen -->
+    </div>
+    <div class="kino-screen">Leinwand</div>
+    <div id="kino-saale" class="kino-saale"></div>
+    <div class="info-legende">
+      <div class="legende-item"><span class="legende-farbe buchbar"></span> Verfügbar</div>
+      <div class="legende-item"><span class="legende-farbe belegt"></span> Belegt</div>
+      <div class="legende-item"><span class="legende-farbe ausgewahlt"></span> Ausgewählt</div>
+    </div>
+    <div class="ausgewahlte-sitze">
+      <h3>Ausgewählte Sitze: <span id="ausgewahlte-liste">Keine Sitze ausgewählt</span></h3>
+    </div>
+    <div class="navigation-buttons">
+      <button id="btn-back-step1" class="btn secondary">Zurück</button>
+      <button id="btn-to-step3" class="btn">Weiter</button>
+    </div>
+  </div>
+
+  <!-- Persönliche Daten -->
+  <div class="section hidden" id="section3">
+    <h2>Persönliche Daten</h2>
+    <div class="form-group">
+      <label for="kunde-name">Name:</label>
+      <input type="text" id="kunde-name" required>
+    </div>
+    <div class="form-group">
+      <label for="kunde-email">E-Mail:</label>
+      <input type="email" id="kunde-email" required>
+    </div>
+    <div class="navigation-buttons">
+      <button id="btn-back-step2" class="btn secondary">Zurück</button>
+      <button id="btn-reservieren" class="btn">Reservieren</button>
+    </div>
+  </div>
+
+  <!-- Bestätigung mit Ticket -->
+  <div class="section hidden" id="section4">
+    <h2>Reservierung erfolgreich!</h2>
+    <div id="reservierungs-details" class="ticket-preview">
+      <!-- Reservierungsdetails -->
+    </div>
+    <button id="btn-download-ticket" class="btn">Ticket herunterladen</button>
+    <button id="btn-neue-reservierung" class="btn secondary">Neue Reservierung</button>
+  </div>
+</div>
+
+<script src="classes/api_handler.js"></script>
+<script src="classes/booking.js"></script>
+<script src="classes/customer.js"></script>
+<script src="classes/logger.js"></script>
+<script src="classes/movie.js"></script>
+<script src="classes/reservation.js"></script>
+<script src="classes/room.js"></script>
+<script src="classes/seat.js"></script>
+<!-- pdf.js library für Ticket -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
